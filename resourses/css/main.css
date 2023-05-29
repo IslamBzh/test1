@@ -1,0 +1,58 @@
+:root {
+	--root-bckgr: #fff;
+	--root-text-color: #000;
+}
+
+body {
+	background: #d1d1d1;
+	color: var(--root-text-color);
+}
+header,
+#content{
+	max-width: 800px;
+	margin: 1rem auto 0;
+}
+header,
+#content > .block {
+	width: 100%;
+	padding: 1rem;
+	background: var(--root-bckgr);
+	border-radius: 1rem;
+}
+header {
+	display: flex;
+    justify-content: space-between;
+}
+
+.tree{
+	display: flex;
+	flex-direction: column;
+	position: relative;
+}
+
+[branch] {
+	margin-left: 1rem;
+	position: relative;
+}
+.tree > [branch]{
+	margin-left: 0;
+}
+[branch] > [branch]{
+
+	border-left: solid 1px #000;
+}
+
+.leaf{
+	position: relative;
+	padding: 0.5rem;
+	display: flex;
+	flex-direction: column;
+}
+
+.action{
+	display: flex;
+	z-index: 5;
+	position: absolute;
+/*	display: none;*/
+}
+

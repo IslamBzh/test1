@@ -1,0 +1,88 @@
+* {
+    transition: all 0.2s ease 0s;
+}
+
+#content {
+	display: flex;
+	max-width: 900px;
+}
+#content > .block{
+
+	min-height: calc(100vh - 4rem);
+}
+#content > #details{
+	margin-left: 1rem;
+	width: 300px;
+	position: relative;
+}
+
+[branch]{
+	-webkit-box-shadow: -4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+	-moz-box-shadow: -4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+	box-shadow: -4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+	border-radius: 0.5rem;
+	border: 1px solid grey;
+}
+[branch] > [branch] {
+	border-right: none;
+/*	border-bottom: none;*/
+	border-radius: 0.5rem 0 0 0.5rem;
+
+	margin: 0  0 1rem 1rem;
+}
+.tree > [branch]{
+	margin-left: 0;
+}
+
+.tree > [branch]:not(:first-child){
+	margin-top: 0.5rem;
+}
+.action{
+	right: 5px;
+}
+.action a[act]{
+	display: block;
+	width: 20px;
+	height: 20px;
+	opacity: 0.6;
+
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.action a[act]:hover{
+	opacity: 1;
+}
+[branch]:not(:has( > .leaf a[act="hide"])) > [branch] {
+	display: none;
+}
+[branch]:not(:has( > [branch])) > .leaf .action{
+    display: none;
+}
+
+.leaf > a{
+	text-decoration: none;
+	color: var(--root-text-color);
+}
+
+#details:has(.name:empty){
+	display: none;
+}
+#details .name{
+}
+#details:not(:has( .description:empty)) i.line{
+	height: 0px;
+	border: 1px solid black;
+	width: 90%;
+	display: block;
+	margin: 1rem auto;
+}
+
+#details .action {
+	top: 8px;
+	right: 6px;
+}
+#details .action a{
+	width: 12px;
+	height: 12px;
+}

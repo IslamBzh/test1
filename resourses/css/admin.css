@@ -1,0 +1,103 @@
+#content > .block{
+	width: auto;
+}
+
+.tree {
+	padding-bottom: 3rem;
+}
+
+.leaf input[name="name"],
+.leaf input[name="name"]:focus,
+.leaf input[name="name"]:active{
+	border: none;
+}
+
+input[name="name"]{
+	width: calc(100% - 3rem);
+}
+
+input:focus::placeholder{
+    padding-left: 2px;
+}
+
+.leaf textarea {
+	resize: vertical;
+}
+
+.tree > .action{
+	bottom: 0;
+	left: 50%;
+}
+[branch]:hover:not(:has( > [branch] > [branch]:hover)) > .action,
+.leaf:hover .action{
+	display: flex;
+}
+
+.leaf .action{
+	top: 5px;
+	right: 8px;
+}
+[branch] > .action{
+	bottom: -10px;
+	left: 10px;
+}
+.action a{
+	text-align: center;
+	text-decoration: none;
+	display: block;
+	margin: auto;
+	width: 12px;
+    height: 12px;
+    background-position: center;
+    background-size: contain;
+	background-repeat: no-repeat;
+}
+
+[branch]:not(:has( > .leaf input[name="show"]:checked)) > [branch] {
+	display: none;
+}
+[branch]:not(:has( > [branch])) > .leaf input[name="show"]{
+    opacity: 0.2;
+}
+#auth.block {
+	margin: auto;
+	width: fit-content;
+}
+#auth form{
+	width: 200px;
+	display: flex;
+	flex-direction: column;
+}
+#auth input {
+	font-size: 1rem;
+	border-radius: 0.5rem;
+	border-color: #d1d1d1;
+}
+#auth input[type="submit"]{
+	cursor: pointer;
+	margin-top: 1rem;
+}
+
+#content:has(#auth){
+	display: flex;
+    height: calc(100vh - 4rem);
+}
+
+.select a[act="transfer"],
+a[act="close"],
+a[act="select"],
+.select a[act="add"]{
+	display: none;
+}
+.select a[act="del"]{
+	opacity: 0.1;
+}
+.select a[act="select"]{
+	display: block;
+}
+.select [branch].transfer a[act="select"]{
+	display: none;
+}
+.select [branch].transfer > .leaf a[act="close"]{
+	display: block;
+}

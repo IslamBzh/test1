@@ -1,0 +1,49 @@
+<?php
+
+$parents = & $branchs['parents'];
+$GLOBALS['childs'] = & $branchs['childs'];
+
+function Generate($branch) {
+	global $childs;
+
+	$id = $branch['id'];
+	$name = $branch['name'];
+	$description = $branch['description'];
+
+	$res = "<div branch=\"{$id}\">";
+
+	$res .= "<div class=\"leaf\">";
+	$res .= 	"<a href=\"//\" class=\"name\" act=\"details\">{$name}</a>";
+	$res .= 	"<input type=\"hidden\" name=\"description\" value=\"{$description}\">";
+	$res .= 	"<div class=\"action\">";
+	$res .= 		"<a href=\"//\" act=\"show\"></a>";
+	$res .= 	"</div>";
+	$res .= "</div>";
+
+	if(isset($childs[$id]))
+		foreach ($childs[$id] as $child_branch)
+			$res .= Generate($child_branch);
+
+	$res .= "</div>";
+
+	return $res;
+}
+
+?>
+<div class="block">
+	<div class="tree">
+		<?php
+		foreach ($parents as $branch)
+			print(Generate($branch));
+		?>
+	</div>
+</div>
+
+<div class="block" id="details">
+	<div class="name"></div>
+	<i class="line"></i>
+	<div class="description"></div>
+	<div class="action">
+		<a href="//" act="close"></a>
+	</div>
+</div>

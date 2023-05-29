@@ -1,0 +1,51 @@
+<?php
+
+$GLOBALS['childs'] = & $branchs['childs'];
+
+function Generate($branch) {
+	global $childs;
+
+
+	$id = $branch['id'];
+	$name = isset($branch['name']) ? $branch['name'] : '';
+	$description = isset($branch['description']) ? $branch['description'] : '';
+
+	$res = "<div branch=\"{$id}\">";
+	$res .= "
+		<form class=\"leaf\">
+			<input type=\"text\" name=\"name\" value=\"{$name}\" placeholder=\"Название\" onfocus=\"this.oldvalue = this.value;\">
+			<textarea name=\"description\" onfocus=\"this.oldvalue = this.value;\">{$description}</textarea>
+			<div class=\"action\">
+				<a act=\"select\" href=\"//\" title=\"Назначить родителем\"></a>
+				<a act=\"transfer\" href=\"//\" title=\"Переназначить родителя\"></a>
+				<a act=\"close\" href=\"//\" title=\"Отменить\"></a>
+				<input type=\"checkbox\" name=\"show\" title=\"Показать вложенную ветку\">
+				<a act=\"del\" href=\"//\" title=\"Удалить\"></a>
+			</div>
+		</form>
+		<div class=\"action\">
+			<a act=\"add\" href=\"//\" title=\"Создать новую ветку\"></a>
+		</div>
+	";
+
+	if(isset($childs[$id]))
+		foreach ($childs[$id] as $child_branch)
+			$res .= Generate($child_branch);
+
+	$res .= "</div>";
+
+	return $res;
+}
+
+?>
+<div class="block">
+	<div class="tree" id="tree">
+		<? foreach ($branchs['parents'] as $branch): ?>
+			<?= Generate($branch); ?>
+		<? endforeach; ?>
+		<div class="action">
+			<a act="select" no-parent="true" href="//" title="Назначить родителем"></a>
+			<a act="add" no-parent="true" href="//" title="Создать новую ветку"></a>
+		</div>
+	</div>
+</div>
