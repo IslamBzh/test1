@@ -17,8 +17,6 @@ class auth {
 			exit;
 		}
 
-		$message = '';
-
 		if(isset($_POST['auth'], $_POST['username'], $_POST['password'])){
 			$username = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
 			$password = htmlspecialchars($_POST['password'], ENT_QUOTES, 'UTF-8');
@@ -31,7 +29,6 @@ class auth {
 		}
 
 		return [
-			'message' => $message,
 			'_title' => "Авторизация"
 		];
 	}

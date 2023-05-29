@@ -43,9 +43,6 @@ function delBranch(branch){
 }
 
 function tranferBranch(branch, new_branch){
-    console.log(branch);
-    console.log(new_branch);
-
     body = branch;
     branch.remove();
     new_branch.append(body);

@@ -9,7 +9,4 @@ class System {
 			require_once $path;
 	}
 
-	function setHash() {
-
-	}
 }

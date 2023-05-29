@@ -79,11 +79,10 @@ class Branch {
 	}
 
 	public static function edit($id, $name, $val){
-		// $name = "`$name`";
 		$sql = "
 			UPDATE `branches`
 			SET
-				`{$name}` = :val
+				{$name} = :val
 			WHERE
 				id = :id
 		";

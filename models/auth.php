@@ -7,8 +7,6 @@ use DB;
 class Auth {
 
 	public static function pass_verify($username, $password){
-
-
 		$sql = "
 			SELECT *
 			FROM `admins`

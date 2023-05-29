@@ -2,7 +2,6 @@
 
 class Router {
 
-	public static $domain = '';
 	public static $uri    = '';
 	public static $page   = [];
 

@@ -21,8 +21,6 @@ document.onclick = function(event) {
     if(parent.getAttribute('branch'))
         id = parent.getAttribute('branch');
 
-    console.log(act, parent, a.getAttribute('no-parent'));
-
     if(!transfer_id && act == 'add')
         ajax('act=new&id=' + id, (res) => {
             if(res.success)
@@ -56,7 +54,6 @@ document.onclick = function(event) {
         parent.classList.remove('transfer');
 
         ajax('act=edit&id=' + transfer_id + '&name=parent_id&value=' + id, (res) => {
-            console.log(res);
             if(res.success)
                 tranferBranch(transfer_branch, parent);
 
@@ -102,7 +99,6 @@ document.onchange = function(event) {
     }
 
     ajax('act=edit&id=' + branch_id + '&name=' + name + '&value=' + value, (res) => {
-        console.log(res);
         if(!res.success){
             el.value = el.oldvalue;
         }

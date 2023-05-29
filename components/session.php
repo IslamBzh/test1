@@ -25,7 +25,7 @@ class Session {
 		session_reset();
 		$_SESSION = [
 			'logout' => $time,
-			'last_hash' => $_SESSION['hash'],
+			'last_username' => @ $_SESSION['username'],
 			'hash' => md5($_SERVER['HTTP_USER_AGENT'] . ':' . $_SERVER['REMOTE_ADDR'] . ":" . $time . ":" .	session_id()),
 		];
 	}

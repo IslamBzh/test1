@@ -97,10 +97,8 @@ class DB {
                 if(is_array($bvalue) || is_object($bvalue))
                     $bvalue = serialize($bvalue);
 
-                if($bvalue === null){
-                    $sql = str_replace(':' . $bkey, 'NULL', $sql);
+                if($bvalue === null)
                     continue;
-                }
 
                 if(is_numeric($bvalue) || is_bool($bvalue)){
                     $bvalue = (int) $bvalue;
