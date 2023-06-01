@@ -1,0 +1,26 @@
+
+<div class="body edit_branch">
+	<div class="action">
+		<a href="//" act="close_popup" ></a>
+	</div>
+	<span class="branch_id"><?=$branch['id']?></span>
+	<h2>Редактирование ветки</h2>
+	<form action="/admin" method="post">
+		<input type="hidden" name="id" value="<?=$branch['id']?>">
+		<input type="hidden" name="parent_id" value="<?=$branch['parent_id'] ? $branch['parent_id'] : 'null'?>">
+		<input type="hidden" name="edit_hash" value="<?=md5($_SESSION['hash'] . $branch['id'])?>">
+
+		<label>Имя:</label>
+		<input type="text" name="name" value="<?=$branch['name']?>" required>
+
+		<label>Описание:</label>
+		<textarea name="description"><?=$branch['description']?></textarea>
+
+		<label>Принадлежит:</label>
+		<select name="parent_id">
+		    <option value="null">---</option>
+		</select>
+
+		<input type="submit" name="edit" value="Сохранить">
+	</form>
+</div>

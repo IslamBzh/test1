@@ -1,0 +1,25 @@
+
+<div class="body edit_branch">
+	<div class="action">
+		<a href="//" act="close_popup" ></a>
+	</div>
+	<h2>Создание ветки</h2>
+	<form action="/admin" method="post">
+		<input type="hidden" name="id" value="null">
+		<input type="hidden" name="hash" value="<?=$_SESSION['hash']?>">
+		<input type="hidden" name="parent_id" value="<?=$parent_id?>">
+
+		<label>Имя:</label>
+		<input type="text" name="name" value="Новая ветка" required>
+
+		<label>Описание:</label>
+		<textarea name="description"></textarea>
+
+		<label>Принадлежит:</label>
+		<select name="parent_id">
+		    <option value="null">---</option>
+		</select>
+
+		<input type="submit" name="new" value="Создать">
+	</form>
+</div>
