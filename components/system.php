@@ -9,4 +9,7 @@ class System {
 			require_once $path;
 	}
 
+	public static function redirect($url){
+		header('Location: ' . $url);
+	}
 }

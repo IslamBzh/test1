@@ -7,7 +7,7 @@
 
     <meta name="robots" content="noindex">
 
-    <title><?php print($title); ?></title>
+    <title><?=$title?></title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/resourses/media/favicon.ico">
@@ -23,11 +23,16 @@
 </head>
 
 <body>
-    <?php
-        if(isset($content))
-            print("<div id=\"content\">{$content}</div>");
-        else
-            print("<h1>Content not loaded.</h1>");
-    ?>
+    <?php if(isset($content)): ?>
+
+        <div id="content">
+            <?php print($content); ?>
+        </div>
+
+    <?php else: ?>
+
+        <h1>Content not loaded.</h1>
+
+    <?php endif; ?>
 </body>
 </html>

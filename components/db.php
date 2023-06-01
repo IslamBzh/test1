@@ -98,9 +98,9 @@ class DB {
                     $bvalue = serialize($bvalue);
 
                 if($bvalue === null)
-                    continue;
+                    $result->bindValue(":$bkey", NULL, \PDO::PARAM_NULL);
 
-                if(is_numeric($bvalue) || is_bool($bvalue)){
+                elseif(is_numeric($bvalue) || is_bool($bvalue)){
                     $bvalue = (int) $bvalue;
                     $result->bindValue(":$bkey", $bvalue, \PDO::PARAM_INT);
                 }

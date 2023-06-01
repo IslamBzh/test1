@@ -27,18 +27,15 @@
 
     <!-- Scripts -->
     <script type="text/javascript" src="/resourses/js/main.js"></script>
+    <script type="text/javascript" src="/resourses/js/branch.js"></script>
     <script defer type="text/javascript" src="/resourses/js/admin.js"></script>
-    <script defer type="text/javascript" src="/resourses/js/branch.js"></script>
 </head>
 
 <body>
-    <? if(Session::is_auth()): ?>
+    <?php if(Session::is_auth()): ?>
     <header>
         <div id="message">
             <span></span>
-            <div class="action">
-                <a href="//" act="close"></a>
-            </div>
         </div>
         <form action="/admin/auth" method="post">
             <span><?=$_SESSION['username']?></span>
@@ -46,17 +43,19 @@
             <input type="submit" name="logout" value="Выйти">
         </form>
     </header>
-    <? endif; ?>
-    <? if(isset($content)): ?>
+    <?php endif; ?>
+    <?php if(isset($content)): ?>
 
         <div id="content">
-            <? print($content); ?>
+            <?php print($content); ?>
         </div>
 
-    <? else: ?>
+    <?php else: ?>
 
         <h1>Content not loaded.</h1>
 
-    <? endif; ?>
+    <?php endif; ?>
+
+    <div id="popup"></div>
 </body>
 </html>

@@ -19,6 +19,15 @@ class TemplateMaster {
 		return $this;
 	}
 
+	public function loadPopup($path, $data){
+		if(!file_exists(self::DIR . $path))
+			return null;
+
+		extract($data, EXTR_OVERWRITE);
+
+		require self::DIR . $path;
+	}
+
 	public function loadPage($page, $data, $title = gConf::SITE_NAME){
 		if(self::has($this->getPath($page)))
 			return print("not found " . $this->getPath($page));

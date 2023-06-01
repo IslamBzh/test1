@@ -9,7 +9,7 @@ use models\Branch;
 class index {
 
 	function __construct(){
-		if(!\Session::is_auth() || $_GET['hash'] != $_SESSION['hash']){
+		if(!\Session::is_auth() || !isset($_GET['hash']) || $_GET['hash'] != $_SESSION['hash']){
 			header('HTTP/1.1 401 Unauthorized');
 			header('Content-Type: application/json; charset=utf-8');
 			echo json_encode("Not authorized");

@@ -1,6 +1,19 @@
 var transfer_id = null;
 var transfer_branch = null;
 
+Branch = new BranchElements();
+
+function setEditForm(doc){
+    body = doc.querySelector('.body');
+    branch_id = body.querySelector('input[name="id"]').value;
+    parent_id = body.querySelector('input[name="parent_id"]').value;
+    body.querySelector('input[name="parent_id"]').remove();
+    select = body.querySelector('select');
+
+    document.getElementById('popup').append(body);
+    Branch.genOptions(select, branch_id, parent_id);
+}
+
 document.onclick = function(event) {
     if (event.target.nodeName != 'A')
         return;
@@ -8,6 +21,10 @@ document.onclick = function(event) {
     var a = event.target;
 
     var act = a.getAttribute('act');
+    if(act == 'close_popup'){
+        document.querySelector('#popup .body').remove();
+            return false;
+    }
     var parent;
 
     if(a.getAttribute('no-parent'))
@@ -22,85 +39,44 @@ document.onclick = function(event) {
         id = parent.getAttribute('branch');
 
     if(!transfer_id && act == 'add')
-        ajax('act=new&id=' + id, (res) => {
-            if(res.success)
-                newBranch(parent, res.id);
-        });
+        fetch("/ajax/new_branch?hash=" + hash + "&parent_id=" + id)
+            .then(function(response) {
+                return response.text();
+            })
+            .then(function(html) {
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(html, "text/html");
+                setEditForm(doc);
+            })
+            .catch(function(err) {
+                return 0;
+            });
     else
     if(!transfer_id && act == 'del'){
         if (confirm('Удалить всю ветку?')) {
-            ajax('act=del&id=' + id, (res) => {
+            ajax('act=del&id=' + id, function(res) {
                 if(res.success)
-                    delBranch(parent);
+                    Branch.del(parent);
             });
         }
     }
     else
-    if(act == 'transfer'){
-        transfer_id = id;
-        transfer_branch = parent;
-        parent.classList.add('transfer');
-        document.getElementById("tree").classList.add('select');
-    }
-    if(act == 'close'){
-        document.getElementById("tree").classList.remove('select');
-        parent.classList.remove('transfer');
-
-        transfer_id = null
-        transfer_branch = null;
-    }
-    if(transfer_id && act == 'select'){
-        document.getElementById("tree").classList.remove('select');
-        parent.classList.remove('transfer');
-
-        ajax('act=edit&id=' + transfer_id + '&name=parent_id&value=' + id, (res) => {
-            if(res.success)
-                tranferBranch(transfer_branch, parent);
-
-            transfer_id = null
-            transfer_branch = null;
-        });
+    if(act == 'edit'){
+        fetch("/ajax/edit_branch?hash=" + hash + "&id=" + id)
+            .then(function(response) {
+                return response.text();
+            })
+            .then(function(html) {
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(html, "text/html");
+                setEditForm(doc);
+            })
+            .catch(function(err) {
+                return 0;
+            });
     }
 
     return false;
 };
 
 
-document.onchange = function(event) {
-    var el = event.target;
-
-    if (el.nodeName != 'TEXTAREA' && el.nodeName != 'INPUT')
-        return;
-
-    var branch = findParentByAttr(el, 'branch');
-
-    var name = el.name;
-    if(name != 'description' && name != 'name')
-        return;
-
-    var branch_id = branch.getAttribute('branch');
-    var value = el.value;
-
-    if(name == 'name' && value.length < 3){
-        if(el.oldvalue.length < 3){
-            if (confirm('Не сохранять ветку?')) {
-                ajax('act=del&id=' + branch_id, (res) => {
-                    if(res.success)
-                        delBranch(branch);
-                });
-                return;
-            }
-            else{
-                el.focus();
-            }
-        }
-        el.value = el.oldvalue;
-        return;
-    }
-
-    ajax('act=edit&id=' + branch_id + '&name=' + name + '&value=' + value, (res) => {
-        if(!res.success){
-            el.value = el.oldvalue;
-        }
-    });
-};

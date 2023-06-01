@@ -13,12 +13,10 @@ function Generate($branch) {
 	$res = "<div branch=\"{$id}\">";
 	$res .= "
 		<form class=\"leaf\">
-			<input type=\"text\" name=\"name\" value=\"{$name}\" placeholder=\"Название\" onfocus=\"this.oldvalue = this.value;\">
-			<textarea name=\"description\" onfocus=\"this.oldvalue = this.value;\">{$description}</textarea>
+			<input disabled type=\"text\" name=\"name\" value=\"{$name}\" placeholder=\"Название\" onfocus=\"this.oldvalue = this.value;\">
+			<textarea disabled name=\"description\" onfocus=\"this.oldvalue = this.value;\">{$description}</textarea>
 			<div class=\"action\">
-				<a act=\"select\" href=\"//\" title=\"Назначить родителем\"></a>
-				<a act=\"transfer\" href=\"//\" title=\"Переназначить родителя\"></a>
-				<a act=\"close\" href=\"//\" title=\"Отменить\"></a>
+				<a act=\"edit\" href=\"//\" title=\"Редактрировать\"></a>
 				<input type=\"checkbox\" name=\"show\" title=\"Показать вложенную ветку\">
 				<a act=\"del\" href=\"//\" title=\"Удалить\"></a>
 			</div>
@@ -40,11 +38,10 @@ function Generate($branch) {
 ?>
 <div class="block">
 	<div class="tree" id="tree">
-		<? foreach ($branchs['parents'] as $branch): ?>
+		<?php foreach ($branchs['parents'] as $branch): ?>
 			<?= Generate($branch); ?>
-		<? endforeach; ?>
+		<?php endforeach; ?>
 		<div class="action">
-			<a act="select" no-parent="true" href="//" title="Назначить родителем"></a>
 			<a act="add" no-parent="true" href="//" title="Создать новую ветку"></a>
 		</div>
 	</div>

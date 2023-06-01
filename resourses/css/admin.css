@@ -20,8 +20,14 @@ input:focus::placeholder{
     padding-left: 2px;
 }
 
-.leaf textarea {
+textarea {
 	resize: vertical;
+}
+
+input[type="submit"]{
+	margin: auto;
+	cursor: pointer;
+	width: 100px;
 }
 
 .tree > .action{
@@ -38,7 +44,7 @@ input:focus::placeholder{
 	right: 8px;
 }
 [branch] > .action{
-	bottom: -10px;
+	bottom: -8px;
 	left: 10px;
 }
 .action a{
@@ -63,6 +69,7 @@ input:focus::placeholder{
 	margin: auto;
 	width: fit-content;
 }
+
 #auth form{
 	width: 200px;
 	display: flex;
@@ -73,8 +80,8 @@ input:focus::placeholder{
 	border-radius: 0.5rem;
 	border-color: #d1d1d1;
 }
+#popup input[type="submit"],
 #auth input[type="submit"]{
-	cursor: pointer;
 	margin-top: 1rem;
 }
 
@@ -83,21 +90,11 @@ input:focus::placeholder{
     height: calc(100vh - 4rem);
 }
 
-.select a[act="transfer"],
-a[act="close"],
-a[act="select"],
-.select a[act="add"]{
-	display: none;
+
+.edit_branch .branch_id {
+	position: absolute;
+	bottom: 1rem;
 }
-.select a[act="del"]{
-	opacity: 0.1;
-}
-.select a[act="select"]{
-	display: block;
-}
-.select [branch].transfer a[act="select"]{
-	display: none;
-}
-.select [branch].transfer > .leaf a[act="close"]{
-	display: block;
+.edit_branch .branch_id:before{
+	content: 'ID: ';
 }

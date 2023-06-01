@@ -14,7 +14,7 @@ function Generate($branch) {
 
 	$res .= "<div class=\"leaf\">";
 	$res .= 	"<a href=\"//\" class=\"name\" act=\"details\">{$name}</a>";
-	$res .= 	"<input type=\"hidden\" name=\"description\" value=\"{$description}\">";
+	$res .= 	"<input type=\"hidden\" name=\"description\" value=\"" . (empty($description) ? '' : htmlspecialchars($description)) . "\">";
 	$res .= 	"<div class=\"action\">";
 	$res .= 		"<a href=\"//\" act=\"show\"></a>";
 	$res .= 	"</div>";

@@ -6,16 +6,47 @@ use DB;
 
 class Branch {
 
-	public static function add($parent_id = null) {
-		$sql = is_numeric($parent_id)
-			? "INSERT INTO `branches`(`parent_id`) VALUES (:parent_id)"
-			: "INSERT INTO `branches`() VALUES ()";
+	public static function new($parent_id, $name, $description){
+		$params = [
+			'name' => $name,
+			'description' => $description
+		];
+		if($parent_id && $parent_id != 'null')
+			$params['parent_id'] = $parent_id;
+		$keys = array_keys($params);
+		$sql = "
+			INSERT INTO `branches`(" . implode(',', $keys) . ")
+			VALUES (:" . (implode(',:', $keys)) . ")
+		";
 
-		$bind = is_numeric($parent_id) ? [
-			'parent_id' => $parent_id
-		] : [];
+		$res = DB::_exc_sql('branches', $sql, $params);
 
-		$res = DB::_exc_sql('branches', $sql, $bind, 'end_key', 'id'); // вернет id нововй ветки
+		return $res;
+	}
+
+	public static function edit($branch_id, $parent_id, $name, $description){
+		$bind = [
+			'id' => $branch_id,
+			'name' => $name,
+			'description' => $description,
+			'parent_id' => null
+		];
+
+		if($parent_id && $parent_id != 'null')
+			$bind['parent_id'] = $parent_id;
+
+		$sql = "
+			UPDATE `branches`
+			SET
+				name = :name,
+				description = :description,
+				parent_id = :parent_id
+
+			WHERE
+				id = :id
+		";
+
+		$res = DB::_exc_sql('branches', $sql, $bind);
 
 		return $res;
 	}
@@ -60,40 +91,6 @@ class Branch {
 			return $res[0];
 
 		return null;
-	}
-
-	public static function getParentID($parent_id){
-		$sql = "
-			SELECT *
-			FROM `branches`
-			WHERE
-				parent_id = :parent_id
-		";
-		$bind = [
-			'parent_id' => $parent_id
-		];
-
-		$res = DB::_exc_sql('branches', $sql, $bind, 'fetch', 'parent_id');
-
-		return $res;
-	}
-
-	public static function edit($id, $name, $val){
-		$sql = "
-			UPDATE `branches`
-			SET
-				{$name} = :val
-			WHERE
-				id = :id
-		";
-		$bind = [
-			'val' => $val,
-			'id' => $id
-		];
-
-		$res = DB::_exc_sql('branches', $sql, $bind);
-
-		return $res;
 	}
 
 	public static function del($id){
